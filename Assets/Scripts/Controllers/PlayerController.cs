@@ -57,19 +57,19 @@ public class PlayerController : Controller
             // Normal speed
             if (Input.GetKey(moveForwardLocal))
             {
-                pawn.MoveForwardLocalTurbo();
+                pawn.MoveForwardLocal();
             }
             if (Input.GetKey(moveBackwardLocal))
             {
-                pawn.MoveBackwardLocalTurbo();
+                pawn.MoveBackwardLocal();
             }
             if (Input.GetKey(rotateClockwise))
             {
-                pawn.RotateClockwiseTurbo();
+                pawn.RotateClockwise();
             }
             if (Input.GetKey(rotateCounterClockwise))
             {
-                pawn.RotateCounterClockwiseTurbo();
+                pawn.RotateCounterClockwise();
             }
         }
 
