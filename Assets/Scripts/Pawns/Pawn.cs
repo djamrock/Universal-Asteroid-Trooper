@@ -1,5 +1,10 @@
 using UnityEngine;
 
+
+// This script is essentially a blueprint, explains what a Pawn must be capable of doing. Any different type of pawn would define what each of these mean in their own script.
+// Local movement is based on the pawn orientation (up is forward), World movement is based on the game worlds fixed direction (up is positive Y)
+
+
 public abstract class Pawn : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -9,6 +14,8 @@ public abstract class Pawn : MonoBehaviour
     public abstract void Update();
 
     public abstract void Teleport();
+
+    public abstract void Quit();
 
     public abstract void MoveForwardLocal();
 

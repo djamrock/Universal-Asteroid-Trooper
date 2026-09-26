@@ -1,5 +1,9 @@
 using UnityEngine;
 
+
+// This script explains each movement for this specific type of pawn that Pawn.cs requires. If another type of pawn was created, it would have its own script so these movements could be different (ship, tank, truck etc would all use the functions from Pawn.cs, but would act differently due to their own scripts)
+
+
 public class StarShipPawn : Pawn
 {
     public float minX;
@@ -84,6 +88,11 @@ public class StarShipPawn : Pawn
     public override void Teleport()
     {
         tf.position = new Vector3(Random.Range(minX, maxX), Random.Range(minY, maxY));
+    }
+
+    public override void Quit()
+    {
+        Application.Quit();
     }
 
     public override void Start()

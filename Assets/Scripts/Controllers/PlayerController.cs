@@ -1,5 +1,9 @@
 using UnityEngine;
 
+
+// This script takes user input and decides what command to send
+
+
 public class PlayerController : Controller
 {
     public KeyCode teleportKey;
@@ -29,6 +33,9 @@ public class PlayerController : Controller
     public KeyCode turboOption1;
     // Right Shift
     public KeyCode turboOption2;
+
+    //Quit
+    public KeyCode quitKey;
 
     public override void MakeDecisions()  // This is all of the player movement
     {
@@ -96,6 +103,12 @@ public class PlayerController : Controller
         if (Input.GetKeyDown(teleportKey))
         {
             pawn.Teleport();
+        }
+
+        //Quit
+        if (Input.GetKeyDown(quitKey))
+        {
+            pawn.Quit(); 
         }
     }
 
