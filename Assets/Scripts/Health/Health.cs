@@ -7,7 +7,7 @@ public class Health : MonoBehaviour
 
     public float maxHealth;
 
-    private Death death;
+    public Death death;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -34,7 +34,7 @@ public class Health : MonoBehaviour
 
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
 
-        if (currentHealth <= 0 && death != null)
+        if (currentHealth <= 0 && death != null) // both conditions must be true, current health zero or less, and death isnt null
         {
             // Die
             death.Die();

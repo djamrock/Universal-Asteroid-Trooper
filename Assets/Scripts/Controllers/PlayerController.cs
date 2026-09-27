@@ -39,76 +39,75 @@ public class PlayerController : Controller
 
     public override void MakeDecisions()  // This is all of the player movement
     {
-        if (Input.GetKey(turboOption1) || Input.GetKey(turboOption2))
+        if (pawn != null)
         {
-            // Speed boost
-            if (Input.GetKey(moveForwardLocal))
+
+            if (Input.GetKey(turboOption1) || Input.GetKey(turboOption2))
             {
-                pawn.MoveForwardLocalTurbo();
+                // Speed boost
+                if (Input.GetKey(moveForwardLocal))
+                {
+                    pawn.MoveForwardLocalTurbo();
+                }
+                if (Input.GetKey(moveBackwardLocal))
+                {
+                    pawn.MoveBackwardLocalTurbo();
+                }
+                if (Input.GetKey(rotateClockwise))
+                {
+                    pawn.RotateClockwiseTurbo();
+                }
+                if (Input.GetKey(rotateCounterClockwise))
+                {
+                    pawn.RotateCounterClockwiseTurbo();
+                }
             }
-            if (Input.GetKey(moveBackwardLocal))
+            else
             {
-                pawn.MoveBackwardLocalTurbo();
+                // Normal speed
+                if (Input.GetKey(moveForwardLocal))
+                {
+                    pawn.MoveForwardLocal();
+                }
+                if (Input.GetKey(moveBackwardLocal))
+                {
+                    pawn.MoveBackwardLocal();
+                }
+                if (Input.GetKey(rotateClockwise))
+                {
+                    pawn.RotateClockwise();
+                }
+                if (Input.GetKey(rotateCounterClockwise))
+                {
+                    pawn.RotateCounterClockwise();
+                }
             }
-            if (Input.GetKey(rotateClockwise))
-            {
-                pawn.RotateClockwiseTurbo();
-            }
-            if (Input.GetKey(rotateCounterClockwise))
-            {
-                pawn.RotateCounterClockwiseTurbo();
-            }
-        }
-        else
-        {
-            // Normal speed
-            if (Input.GetKey(moveForwardLocal))
-            {
-                pawn.MoveForwardLocal();
-            }
-            if (Input.GetKey(moveBackwardLocal))
-            {
-                pawn.MoveBackwardLocal();
-            }
-            if (Input.GetKey(rotateClockwise))
-            {
-                pawn.RotateClockwise();
-            }
-            if (Input.GetKey(rotateCounterClockwise))
-            {
-                pawn.RotateCounterClockwise();
-            }
-        }
 
 
-        // Worldspace
-        if (Input.GetKeyDown(moveForwardWorld))
-        {
-            pawn.MoveForwardWorld();
-        }
-        if (Input.GetKeyDown(moveBackwardWorld))
-        {
-            pawn.MoveBackwardWorld();
-        }
-        if (Input.GetKeyDown(moveRightWorld))
-        {
-            pawn.MoveRightWorld();
-        }
-        if (Input.GetKeyDown(moveLeftWorld))
-        {
-            pawn.MoveLeftWorld();
-        }
+            // Worldspace
+            if (Input.GetKeyDown(moveForwardWorld))
+            {
+                pawn.MoveForwardWorld();
+            }
+            if (Input.GetKeyDown(moveBackwardWorld))
+            {
+                pawn.MoveBackwardWorld();
+            }
+            if (Input.GetKeyDown(moveRightWorld))
+            {
+                pawn.MoveRightWorld();
+            }
+            if (Input.GetKeyDown(moveLeftWorld))
+            {
+                pawn.MoveLeftWorld();
+            }
 
-        //Teleportation
-        if (Input.GetKeyDown(teleportKey))
-        {
-            pawn.Teleport();
-        }
+            //Teleportation
+            if (Input.GetKeyDown(teleportKey))
+            {
+                pawn.Teleport();
+            }
 
-        //Quit
-        if (Input.GetKeyDown(quitKey))
-        {
-            pawn.Quit(); 
         }
     }
 

@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 40524583d17b30a468ee553e8b36688a
+guid: 8ba77e365e1b52149bd1d51598dd2304
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4158660594641659784
-    second: backgroundPanelGray_0
+      213: -4716218508711883000
+    second: ChatGPT Image Sep 9, 2026, 09_18_43 PM_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -40,13 +40,13 @@ TextureImporter:
     filterMode: 1
     aniso: 1
     mipBias: 0
-    wrapU: 0
-    wrapV: 0
-    wrapW: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -115,13 +115,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: backgroundPanelGray_0
+      name: ChatGPT Image Sep 9, 2026, 09_18_43 PM_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 128
-        height: 128
+        width: 2048
+        height: 768
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -130,8 +130,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 87818f209387946c0800000000000000
-      internalID: -4158660594641659784
+      spriteID: 80f0b110140ac8eb0800000000000000
+      internalID: -4716218508711883000
       vertices: []
       indices: 
       edges: []
@@ -140,7 +140,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -150,7 +150,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      backgroundPanelGray_0: -4158660594641659784
+      ChatGPT Image Sep 9, 2026, 09_18_43 PM_0: -4716218508711883000
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
