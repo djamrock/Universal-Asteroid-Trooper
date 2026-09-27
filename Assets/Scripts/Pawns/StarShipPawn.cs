@@ -24,6 +24,8 @@ public class StarShipPawn : Pawn
 
     public float turboRotateSpeed;
 
+    public Shooter sh;
+
 
     public override void MoveBackwardLocal()
     {
@@ -90,14 +92,22 @@ public class StarShipPawn : Pawn
         tf.position = new Vector3(Random.Range(minX, maxX), Random.Range(minY, maxY));
     }
 
-    public override void Quit()
+    public override void Shoot() // Tells shooter component to shoot
     {
-        Application.Quit();
+        if (sh != null)
+        {
+            sh.Shoot();
+        }
     }
+    //public override void Quit()
+    //{
+    //    Application.Quit();
+    //}
 
     public override void Start()
     {
         tf = GetComponent<Transform>();
+        sh = GetComponent<Shooter>();
     }
 
     public override void Update()

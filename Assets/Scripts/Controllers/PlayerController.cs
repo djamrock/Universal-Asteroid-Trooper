@@ -35,7 +35,10 @@ public class PlayerController : Controller
     public KeyCode turboOption2;
 
     //Quit
-    public KeyCode quitKey;
+    // public KeyCode quitKey;
+
+    //Shoot
+    public KeyCode shootKey;
 
     public override void MakeDecisions()  // This is all of the player movement
     {
@@ -108,12 +111,20 @@ public class PlayerController : Controller
                 pawn.Teleport();
             }
 
+            //Shoot
+            if (Input.GetKeyDown(shootKey))
+            {
+                pawn.Shoot();
+            }
         }
     }
 
     public override void Start()
     {
-        
+        if (GameManager.instance != null)
+        {
+            GameManager.instance.playerController = this; // playerController is registering itself with the GameManager
+        }
     }
 
     public override void Update()

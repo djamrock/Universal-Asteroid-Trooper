@@ -15,7 +15,7 @@ public abstract class Pawn : MonoBehaviour
 
     public abstract void Teleport();
 
-    public abstract void Quit();
+    //public abstract void Quit();
 
     public abstract void MoveForwardLocal();
 
@@ -41,5 +41,5 @@ public abstract class Pawn : MonoBehaviour
 
     public abstract void MoveLeftWorld();
 
-
+    public abstract void Shoot();
 }

@@ -10,8 +10,12 @@ GameObject:
   m_Component:
   - component: {fileID: 6867935281826172753}
   - component: {fileID: 5159461145597457223}
+  - component: {fileID: -951391056163083504}
   - component: {fileID: 2020976427494463000}
   - component: {fileID: 6572371070199180662}
+  - component: {fileID: 7452667996410616526}
+  - component: {fileID: 2858299177742040600}
+  - component: {fileID: -6048051790970960312}
   m_Layer: 0
   m_Name: Asteroid
   m_TagString: Untagged
@@ -49,6 +53,21 @@ MonoBehaviour:
   damageAmount: 15
   isInstaKill: 0
   otherHealthComponent: {fileID: 0}
+--- !u!114 &-951391056163083504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1352907783667479344}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 176b04725cf01ae41ab65b6f678adea8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Health
+  currentHealth: 75
+  maxHealth: 75
+  death: {fileID: 0}
 --- !u!212 &2020976427494463000
 SpriteRenderer:
   serializedVersion: 3
@@ -117,7 +136,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1352907783667479344}
-  m_BodyType: 0
+  m_BodyType: 2
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -136,3 +155,95 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!60 &7452667996410616526
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1352907783667479344}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.98, y: 0.96}
+    newSize: {x: 0.98, y: 0.96}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.42999998, y: -0.13}
+      - {x: 0.48999998, y: 0.04}
+      - {x: 0.48999998, y: 0.14999999}
+      - {x: 0.42, y: 0.22999999}
+      - {x: 0.34, y: 0.32}
+      - {x: 0.19999999, y: 0.48}
+      - {x: 0.07, y: 0.48}
+      - {x: -0.02, y: 0.45}
+      - {x: -0.35999998, y: 0.35999998}
+      - {x: -0.38, y: 0.32999998}
+      - {x: -0.48, y: 0.01}
+      - {x: -0.48999998, y: -0.02}
+      - {x: -0.48999998, y: -0.14999999}
+      - {x: -0.38, y: -0.29}
+      - {x: -0.29, y: -0.39}
+      - {x: -0.21, y: -0.48}
+      - {x: -0.01, y: -0.48}
+      - {x: 0.08, y: -0.47}
+      - {x: 0.32, y: -0.45}
+      - {x: 0.35, y: -0.39999998}
+  m_UseDelaunayMesh: 1
+--- !u!114 &2858299177742040600
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1352907783667479344}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e69bd275b7483a442a0de14cd9503c6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Obstacle
+--- !u!114 &-6048051790970960312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1352907783667479344}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24a8dedf28ece4a48a0ccef42990ffae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DeathDestroyManager
+  obstacleToRemoveOnDeath: {fileID: 0}

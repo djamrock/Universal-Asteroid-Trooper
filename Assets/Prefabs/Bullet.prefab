@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2971495853046985620}
   - component: {fileID: 880226031950061194}
+  - component: {fileID: -5207404632346281249}
+  - component: {fileID: 2010057104253506199}
   - component: {fileID: 6584740410278256559}
   - component: {fileID: 3588902329438163994}
   m_Layer: 0
@@ -84,7 +86,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: -2346302928887187388, guid: ca3eaceb7ecfe0740bed35bab8f91f64, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 0.98039216, b: 0.19705722, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -94,6 +96,37 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
   m_BlendShapeWeights: []
+--- !u!114 &-5207404632346281249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6177179432822439754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6697c004ee2ea024d9fc2521a0782250, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Bullet
+  fireForce: 500
+  rb: {fileID: 0}
+  tf: {fileID: 0}
+  lifetime: 2
+--- !u!114 &2010057104253506199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6177179432822439754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d90add7ea3741aa4987dc139841dfc37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Damager
+  damageAmount: 25
+  isInstaKill: 0
+  otherHealthComponent: {fileID: 0}
 --- !u!50 &6584740410278256559
 Rigidbody2D:
   serializedVersion: 5
