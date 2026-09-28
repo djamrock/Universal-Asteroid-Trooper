@@ -11,7 +11,7 @@ public class ShooterBullet : Shooter
     {
         if (bulletSpawnPoint != null && bulletPrefab != null)
         {
-            Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
+            Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation); // creates each bullet when shoot is presses. line reads as "create(bullet gameObject, Vector3 position on the bullet, Quanternion rotation of the bullet)
         }
     }
     public override void Start()
