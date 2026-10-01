@@ -9,6 +9,62 @@ public class GameManager : MonoBehaviour
 
     public List<Obstacle> obstacleList;
 
+    public GameObject TitleScreenStateObject;
+
+    public GameObject MainMenuStateObject;
+
+    public GameObject OptionsScreenStateObject;
+
+    public GameObject CreditsScreenStateObject;
+
+    public GameObject GameplayStateObject;
+
+    public GameObject GameOverScreenStateObject;
+
+
+
+    private void DeactivateAllStates()
+    {
+        TitleScreenStateObject.SetActive(false);
+        MainMenuStateObject.SetActive(false);
+        OptionsScreenStateObject.SetActive(false);
+        CreditsScreenStateObject.SetActive(false);
+        GameplayStateObject.SetActive(false);
+        GameOverScreenStateObject.SetActive(false);
+    }
+
+    public void ActivateTitleScreen()
+    {
+        DeactivateAllStates();
+        TitleScreenStateObject.SetActive(true);
+    }
+
+    public void ActivateMainMenu()
+    {
+        DeactivateAllStates();
+        MainMenuStateObject.SetActive(true);
+    }
+
+    public void ActivateOptionsScreen()
+    {
+        DeactivateAllStates();
+        OptionsScreenStateObject.SetActive(true);
+    }
+    public void ActivateCreditsScreen()
+    {
+        DeactivateAllStates();
+        CreditsScreenStateObject.SetActive(true);
+    }
+    public void ActivateGameplay()
+    { 
+        DeactivateAllStates();
+        GameplayStateObject.SetActive(true);
+    }
+    public void ActivateGameOverScreen()
+    {
+        DeactivateAllStates();
+        GameOverScreenStateObject.SetActive(true);
+    }
 
     public void Awake()
     {
