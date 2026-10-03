@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -11,6 +12,7 @@ public class GameManager : MonoBehaviour
 
     public int score;
 
+    public TMP_Text text;
 
     public void Awake()
     {
@@ -43,15 +45,23 @@ public class GameManager : MonoBehaviour
                 if (playerController.pawn != null)
                 {
                     Debug.Log("Victory!");
+                    Time.timeScale = 0f;    // Game Time is paused so no more asteroids spawn and Victory happens
                 }
             }
         }
+
         if (playerController != null)
         {
             if (playerController.pawn == null)
             {
                 Debug.Log("Failure!");
+                Time.timeScale = 0f;    // Game Time is paused so no more asteroids spawn and Failure happens
             }
+        }
+
+        if (text != null)
+        {
+            text.text = "" + score;
         }
     }
 }

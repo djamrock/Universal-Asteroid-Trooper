@@ -6,21 +6,29 @@ public class DeathDestroyManager : Death
 
     public int scoreValue;
     
-    public Obstacle obstacleToRemoveOnDeath; // 
+    public Obstacle obstacleToRemoveOnDeath; 
+
     public override void Die()
     {
         if (GameManager.instance != null) //make sure this instance exists
         {
             if (GameManager.instance.obstacleList != null && obstacleToRemoveOnDeath != null) // make sure obstacle list exists
             {
-                GameManager.instance.obstacleList.Remove(obstacleToRemoveOnDeath); //
+                GameManager.instance.obstacleList.Remove(obstacleToRemoveOnDeath); 
             }
 
-            animator.SetTrigger("Explode");
+            Health health = GetComponent<Health>(); // This makes the health bar disappear immediately so its doesnt block the view of the explosion
+
+            if (health != null && health.healthBar != null)
+            {
+                health.healthBar.gameObject.SetActive(false);
+            }
+
+            animator.SetTrigger("Explode");  // animation I added for the Asteroid to expode 
+
             GameManager.instance.score += scoreValue;
         }
 
-        Destroy(gameObject);
     }
 
     public override void Start()
