@@ -2,6 +2,10 @@ using UnityEngine;
 
 public class DeathDestroyManager : Death
 {
+    public Animator animator;
+
+    public int scoreValue;
+    
     public Obstacle obstacleToRemoveOnDeath; // 
     public override void Die()
     {
@@ -11,6 +15,9 @@ public class DeathDestroyManager : Death
             {
                 GameManager.instance.obstacleList.Remove(obstacleToRemoveOnDeath); //
             }
+
+            animator.SetTrigger("Explode");
+            GameManager.instance.score += scoreValue;
         }
 
         Destroy(gameObject);
@@ -18,12 +25,18 @@ public class DeathDestroyManager : Death
 
     public override void Start()
     {
+        animator = GetComponent<Animator>();
         obstacleToRemoveOnDeath = GetComponent<Obstacle>(); // 
     }
 
     public override void Update()
     {
         
+    }
+
+    public void DestroyAsteroid()
+    {
+        Destroy(gameObject);
     }
 
 }

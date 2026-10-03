@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
 
     public List<Obstacle> obstacleList;
 
+    public int score;
+
 
     public void Awake()
     {
