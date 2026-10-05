@@ -12,10 +12,15 @@ public class Health : MonoBehaviour
 
     public Image healthBar;
 
+    public AudioClip hitSound;
+
+    public AudioSource audioSource;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         death = GetComponent<Death>(); // if component exists, that is saved in the variable. if it doesnt exist, null is saved
+        audioSource = GetComponent<AudioSource>();
 
         if (healthBar != null)
         {
@@ -50,6 +55,11 @@ public class Health : MonoBehaviour
         if (healthBar != null)
         {
             healthBar.fillAmount = 1f - (currentHealth / maxHealth);
+        }
+
+        if (hitSound != null && audioSource != null)    // adds sound to taking damage
+        {
+            audioSource.PlayOneShot(hitSound);
         }
 
         if (currentHealth <= 0 && death != null) // both conditions must be true, current health zero or less, and death isnt null

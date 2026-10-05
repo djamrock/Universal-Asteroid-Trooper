@@ -6,7 +6,12 @@ public class DeathDestroyManager : Death
 
     public int scoreValue;
     
-    public Obstacle obstacleToRemoveOnDeath; 
+    public Obstacle obstacleToRemoveOnDeath;
+
+    public AudioClip explosionSound;
+
+    public AudioSource audioSource;
+
 
     public override void Die()
     {
@@ -24,6 +29,11 @@ public class DeathDestroyManager : Death
                 health.healthBar.gameObject.SetActive(false);
             }
 
+            if (explosionSound != null && audioSource != null)      // adds explosion sound when destroyed
+            {
+                audioSource.PlayOneShot(explosionSound);
+            }
+
             animator.SetTrigger("Explode");  // animation I added for the Asteroid to expode 
 
             GameManager.instance.score += scoreValue;
@@ -34,7 +44,8 @@ public class DeathDestroyManager : Death
     public override void Start()
     {
         animator = GetComponent<Animator>();
-        obstacleToRemoveOnDeath = GetComponent<Obstacle>(); // 
+        obstacleToRemoveOnDeath = GetComponent<Obstacle>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     public override void Update()

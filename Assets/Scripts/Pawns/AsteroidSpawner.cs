@@ -9,7 +9,7 @@ public class AsteroidSpawner : MonoBehaviour
 
     public Transform starShipPawn;      // lets me add the StarShipPawn in Inspector so asteroids cant spawn on it or too close
 
-    public float minimumSpawnDistance = 3f;     // creates a number that controls how close an asteroid is allowed to spawn to the player or other asteroids, defaulted to 3 units
+    public float minimumSpawnDistance = 2f;     // creates a number that controls how close an asteroid is allowed to spawn to the player or other asteroids, defaulted to 2 units
 
     public float spawnInterval = 5f;            // how often Asteroids will spawn, defaulted to 5 seconds
 

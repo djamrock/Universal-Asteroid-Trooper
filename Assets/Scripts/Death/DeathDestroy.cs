@@ -4,7 +4,12 @@ public class DeathDestroy : Death  // DeathDestroy class inherets from Death com
 {
     public override void Die()
     {
-        Destroy(gameObject); // gameObject refers to the game object that this DeathDestoy Component is attached to
+        if (GameManager.instance != null)
+        {
+            GameManager.instance.PlayFailureSound();    // adds game over sound, the 2f below delays the pawn from being destroyed until after its played
+        }
+
+        Destroy(gameObject, 2f); // gameObject refers to the game object that this DeathDestoy Component is attached to
     }
 
     public override void Start()
