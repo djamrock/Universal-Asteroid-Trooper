@@ -14,8 +14,14 @@ public class AsteroidSpawner : MonoBehaviour
     public float spawnInterval = 5f;            // how often Asteroids will spawn, defaulted to 5 seconds
 
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    
+    public void Start()
+    {
+        
+    }
+
+
+    void OnEnable()
     {
         if (mainCamera == null)                         // Checks to see if mainCamera has no camera assigned, adds Main Camera to mainCamera if so
         {
@@ -24,12 +30,18 @@ public class AsteroidSpawner : MonoBehaviour
         InvokeRepeating("SpawnAsteroid", 0f, spawnInterval);  // InvokeRepeating repeatedly runs SpawnAsteroid, and needs a method, delay, and repeatRate input into it. It gets SpawnAsteroid, runs immediately because of 0f(no delay so it adds an Asteroid as soon as the game starts), then pulls the SpawnInterval which is set to 5 seconds, the the next asteroid comes onscreen 5 seconds later, every 5 seconds)
     }
 
-    // Update is called once per frame
+    private void OnDisable()
+    {
+        CancelInvoke();
+    }
+
+   
     void Update()
     {
 
     }
 
+    
     void SpawnAsteroid()
     {
         Vector3 worldPosition;      // creating a variable for the asteroids world position

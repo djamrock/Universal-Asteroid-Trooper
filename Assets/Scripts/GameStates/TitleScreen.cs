@@ -1,10 +1,8 @@
 using UnityEngine;
 
-public class Quit : MonoBehaviour
+
+public class TitleScreen : MonoBehaviour
 {
-    public KeyCode quitKey;
-
-
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -12,16 +10,11 @@ public class Quit : MonoBehaviour
     }
 
     // Update is called once per frame
-    public void Update()
+    void Update()
     {
-        if (Input.GetKeyDown(quitKey))
+        if (Input.anyKeyDown)
         {
-            Application.Quit();
+            GameManager.instance.ActivateMainMenuScreen();
         }
-    }
-
-    public void QuitGame()
-    {
-        Application.Quit();
     }
 }

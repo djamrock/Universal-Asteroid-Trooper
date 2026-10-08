@@ -24,6 +24,21 @@ public class GameManager : MonoBehaviour
 
     public bool gameEnded = false;
 
+    public GameObject TitleScreenStateObject;
+
+    public GameObject MainMenuScreenStateObject;
+
+    public GameObject OptionsScreenStateObject;
+
+    public GameObject CreditsScreenStateObject;
+
+    public GameObject GameplayStateObject;
+
+    public GameObject GameOverScreenStateObject;
+
+    public int lives = 3;
+
+
     public void Awake()
     {
         obstacleList = new List<Obstacle>(); // initalizes the data stucture that is capable of storing the collection of obstacles in memory
@@ -41,10 +56,11 @@ public class GameManager : MonoBehaviour
         }
     }
 
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
+        ActivateTitleScreen();
     }
 
     // Update is called once per frame
@@ -95,4 +111,86 @@ public class GameManager : MonoBehaviour
             audioSource.PlayOneShot(failureSound);
         }
     }
+
+
+    // Deactivate every game state as default
+    private void DeactivateAllStates()
+    {
+        TitleScreenStateObject.SetActive(false);
+        MainMenuScreenStateObject.SetActive(false);
+        OptionsScreenStateObject.SetActive(false);
+        CreditsScreenStateObject.SetActive(false);
+        GameplayStateObject.SetActive(false);
+        GameOverScreenStateObject.SetActive(false);
+    }
+
+    public void ActivateTitleScreen()
+    {
+        // Deactivate all states
+        DeactivateAllStates();
+
+        // Activate the title screen
+        TitleScreenStateObject.SetActive(true);
+
+        // Add specific screen code here
+    }
+
+    public void ActivateGameplayScreen()
+    {
+        // Deactivate all states
+        DeactivateAllStates();
+
+        // Activate the Gameplay screen
+        GameplayStateObject.SetActive(true);
+
+        // Add specific screen code here
+    }
+
+    public void ActivateMainMenuScreen()
+    {
+        // Deactivate all states
+        DeactivateAllStates();
+
+        // Activate the Main Menu screen
+        MainMenuScreenStateObject.SetActive(true);
+
+        // Add specific screen code here
+    }
+
+    public void ActivateOptionsScreen()
+    {
+        // Deactivate all states
+        DeactivateAllStates();
+
+        // Activate the Options screen
+        OptionsScreenStateObject.SetActive(true);
+
+        // Add specific screen code here
+    }
+
+    public void ActivateCreditsScreen()
+    {
+        // Deactivate all states
+        DeactivateAllStates();
+
+        // Activate the Credits screen
+        CreditsScreenStateObject.SetActive(true);
+
+        // Add specific screen code here
+    }
+
+    public void ActivateGameOverScreen()
+    {
+        // Deactivate all states
+        DeactivateAllStates();
+
+        // Activate the Game Over screen
+        GameOverScreenStateObject.SetActive(true);
+
+        // Add specific screen code here
+    }
+
+
+
+
 }
