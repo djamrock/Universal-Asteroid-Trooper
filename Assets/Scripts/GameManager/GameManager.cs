@@ -38,6 +38,15 @@ public class GameManager : MonoBehaviour
 
     public int lives = 3;
 
+    public GameObject playerPawnPrefab;
+
+    public GameObject[] lifeIcons;  // variable set as an array to have multiple values (the life icons in the top right), the [] makes it an array
+
+    public AsteroidSpawner asteroidSpawner;
+
+    public float respawnDelay = 1.5f;
+
+
 
     public void Awake()
     {
@@ -54,7 +63,7 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-    }
+    } 
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -88,15 +97,15 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        if (playerController != null)
-        {
-            if (playerController.pawn == null)
-            {
-                Debug.Log("Failure!");
-                Time.timeScale = 0f;     // Game Time is paused so no more asteroids spawn and Failure happens
+        //if (playerController != null)
+        //{
+        //    if (playerController.pawn == null)
+        //    {
+        //        Debug.Log("Failure!");
+        //        Time.timeScale = 0f;     // Game Time is paused so no more asteroids spawn and Failure happens
 
-            }
-        }
+        //    }
+        //}
 
         if (text != null)
         {
@@ -131,8 +140,6 @@ public class GameManager : MonoBehaviour
 
         // Activate the title screen
         TitleScreenStateObject.SetActive(true);
-
-        // Add specific screen code here
     }
 
     public void ActivateGameplayScreen()
@@ -140,10 +147,14 @@ public class GameManager : MonoBehaviour
         // Deactivate all states
         DeactivateAllStates();
 
+        Time.timeScale = 1f;
+        gameEnded = false;
+        lives = 3;
+
+        UpdateLivesUI();
+
         // Activate the Gameplay screen
         GameplayStateObject.SetActive(true);
-
-        // Add specific screen code here
     }
 
     public void ActivateMainMenuScreen()
@@ -153,8 +164,6 @@ public class GameManager : MonoBehaviour
 
         // Activate the Main Menu screen
         MainMenuScreenStateObject.SetActive(true);
-
-        // Add specific screen code here
     }
 
     public void ActivateOptionsScreen()
@@ -164,8 +173,6 @@ public class GameManager : MonoBehaviour
 
         // Activate the Options screen
         OptionsScreenStateObject.SetActive(true);
-
-        // Add specific screen code here
     }
 
     public void ActivateCreditsScreen()
@@ -175,8 +182,6 @@ public class GameManager : MonoBehaviour
 
         // Activate the Credits screen
         CreditsScreenStateObject.SetActive(true);
-
-        // Add specific screen code here
     }
 
     public void ActivateGameOverScreen()
@@ -186,11 +191,111 @@ public class GameManager : MonoBehaviour
 
         // Activate the Game Over screen
         GameOverScreenStateObject.SetActive(true);
-
-        // Add specific screen code here
     }
 
+    public void UpdateLivesUI()
+    {
+        if (lifeIcons == null)
+        {
+            return;
+        }
 
+        for (int i = 0; i < lifeIcons.Length; i += 1)
+        {
+            if (lifeIcons[i] != null)
+            {
+                lifeIcons[i].SetActive(i < lives);
+            }
+        }
+    }
+     public void HandlePlayerDeath()
+     {
+        if (gameEnded)
+        {
+            return;
+        }
+
+        lives = Mathf.Max(0, lives - 1);
+
+        UpdateLivesUI();
+
+        if (playerController != null)
+        {
+            playerController.pawn = null;
+        }
+
+        if (asteroidSpawner != null)
+        {
+            asteroidSpawner.starShipPawn = null;
+        }
+
+        if (lives <=0)
+        {
+            gameEnded = true;
+            ActivateGameOverScreen();
+            Time.timeScale = 0f;
+        }
+        else
+        {
+            Invoke(nameof(RespawnPlayer), respawnDelay);
+        }
+     }
+
+    public void RespawnPlayer()
+    {
+        if (playerPawnPrefab == null)
+        {
+            Debug.LogError("Player Pawn Prefab is not assigned!");
+            return;
+        }
+
+        if (playerController == null)
+        {
+            Debug.LogError("Player controller is not assigned!");
+            return;
+        }
+
+        Camera mainCamera = Camera.main;
+
+        if (mainCamera == null)
+        {
+            Debug.LogError("Main Camera was not found!");
+            return;
+        }
+
+        Vector3 screenCenter = new Vector3(
+            Screen.width / 2f,
+            Screen.height / 2f,
+            -mainCamera.transform.position.z);
+
+        Vector3 spawnPosition =
+            mainCamera.ScreenToWorldPoint(screenCenter);
+
+        spawnPosition.z = 0f;
+
+        GameObject newShip = Instantiate(
+            playerPawnPrefab,
+            spawnPosition,
+            Quaternion.identity);
+
+        Pawn newPawn = newShip.GetComponent<Pawn>();
+
+        if (newPawn == null)
+        {
+            Debug.LogError("Player Pawn Prefab must have a Pawn component!");
+
+            Destroy(newShip);
+            return;
+        }
+
+        playerController.pawn = newPawn;
+
+        if (asteroidSpawner != null)
+        {
+            asteroidSpawner.starShipPawn = newShip.transform;
+        }
+
+    }
 
 
 }

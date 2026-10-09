@@ -44,6 +44,21 @@ public class AsteroidSpawner : MonoBehaviour
     
     void SpawnAsteroid()
     {
+        if (starShipPawn == null || asteroidPrefab == null)
+        {
+            return;
+        }
+        
+        if (mainCamera == null)
+        {
+            mainCamera = Camera.main;
+        }
+
+        if (mainCamera == null)
+        {
+            return;
+        }
+
         Vector3 worldPosition;      // creating a variable for the asteroids world position
 
         do                          // starts a do / while loop. It runs the random position generator, then the While part checks it against the minimum spawn distance. If its good, it stops. If its too close, it runs again. 

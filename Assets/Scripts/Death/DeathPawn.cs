@@ -6,6 +6,11 @@ public class DeathPawn : Death
 
     public override void Die()
     {
+        if (GameManager.instance != null)
+        {
+            GameManager.instance.HandlePlayerDeath();
+        }
+
         if (controller != null)
         {
             controller.pawn = null;
