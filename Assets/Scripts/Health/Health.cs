@@ -19,7 +19,11 @@ public class Health : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        death = GetComponent<Death>(); // if component exists, that is saved in the variable. if it doesnt exist, null is saved
+        if (death == null)
+        {
+            death = GetComponent<Death>(); // if component exists, that is saved in the variable. if it doesnt exist, null is saved
+        }
+        
         audioSource = GetComponent<AudioSource>();
 
         if (healthBar != null)
@@ -64,8 +68,15 @@ public class Health : MonoBehaviour
 
         if (currentHealth <= 0 && death != null) // both conditions must be true, current health zero or less, and death isnt null
         {
+            Debug.Log("Health reached zero. Calling: " + death.GetType().Name);
+
             // Die
             death.Die();
+        }
+
+        else if (currentHealth <= 0)
+        {
+            Debug.LogError("Health reached zero, but Death is not assigned!");
         }
     }
 }

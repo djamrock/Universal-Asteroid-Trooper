@@ -15,9 +15,25 @@ public class OptionsUI : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public void Start()
     {
-        OnMainVolumeChange();
-        OnMusicVolumeChange();
-        OnSFXVolumeChange();
+        float volume;
+
+        // Get the current Master volume
+        if (mainAudioMixer.GetFloat("MasterVolume", out volume))
+        {
+            mainVolumeSlider.value = Mathf.Pow(10, volume / 20);
+        }
+
+        // Get the current Music volume
+        if (mainAudioMixer.GetFloat("MusicVolume", out volume))
+        {
+            musicVolumeSlider.value = Mathf.Pow(10, volume / 20);
+        }
+
+        // Get the current SFX volume
+        if (mainAudioMixer.GetFloat("SFXVolume", out volume))
+        {
+            SFXVolumeSlider.value = Mathf.Pow(10, volume / 20);
+        }
     }
 
 

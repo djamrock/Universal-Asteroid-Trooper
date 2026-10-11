@@ -4,16 +4,22 @@ public class DeathPawn : Death
 {
     public Controller controller;
 
+    public AudioClip deathSound;
+
     public override void Die()
     {
-        if (GameManager.instance != null)
+        if (deathSound != null)
         {
-            GameManager.instance.HandlePlayerDeath();
+            AudioSource.PlayClipAtPoint(deathSound, Camera.main.transform.position);
         }
 
-        if (controller != null)
+        Debug.Log("DeathPawn was called");
+        if (GameManager.instance != null)
         {
-            controller.pawn = null;
+            if (GameManager.instance.playerLives != null)
+            {
+                GameManager.instance.playerLives.HandlePlayerDeath();
+            }
         }
 
         Destroy(gameObject);

@@ -24,6 +24,22 @@ public class GameManager : MonoBehaviour
 
     public bool gameEnded = false;
 
+    public int lives = 3;
+
+    public GameObject playerPawnPrefab;
+
+    public AsteroidSpawner asteroidSpawner;
+
+    public float respawnDelay = 1.5f;
+
+    public GameObject gameplayAudioListener;
+
+    public AudioListener cameraAudioListener;
+
+    public GameObject GameOverScreenStateObject;
+
+    public bool startingNewGame = false;
+
     public GameObject TitleScreenStateObject;
 
     public GameObject MainMenuScreenStateObject;
@@ -34,22 +50,19 @@ public class GameManager : MonoBehaviour
 
     public GameObject GameplayStateObject;
 
-    public GameObject GameOverScreenStateObject;
+    public GameObject VictoryScreenStateObject;
 
-    public int lives = 3;
-
-    public GameObject playerPawnPrefab;
-
-    public GameObject[] lifeIcons;  // variable set as an array to have multiple values (the life icons in the top right), the [] makes it an array
-
-    public AsteroidSpawner asteroidSpawner;
-
-    public float respawnDelay = 1.5f;
+    public PlayerLives playerLives;
 
 
 
     public void Awake()
     {
+        if (Camera.main != null)
+        {
+            cameraAudioListener = Camera.main.GetComponent<AudioListener>();
+        }
+
         obstacleList = new List<Obstacle>(); // initalizes the data stucture that is capable of storing the collection of obstacles in memory
 
         audioSource = GetComponent<AudioSource>();
@@ -75,13 +88,27 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (startingNewGame)
+        {
+            if (obstacleList != null && obstacleList.Count > 0)
+            {
+                startingNewGame = false;
+            }
+
+            else
+            {
+                return;
+            }
+        }
+
         if (obstacleList != null)
         {
-            if (obstacleList.Count <= 0 && playerController != null)
+            if (!gameEnded && obstacleList.Count <= 0 && playerController != null)
             {
                 if (playerController.pawn != null)
                 {
                     Debug.Log("Victory!");
+                    ActivateVictoryScreen();
 
                     if (gameEnded == false)     // only run if the game hasnt ended
                     {
@@ -96,16 +123,6 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
-
-        //if (playerController != null)
-        //{
-        //    if (playerController.pawn == null)
-        //    {
-        //        Debug.Log("Failure!");
-        //        Time.timeScale = 0f;     // Game Time is paused so no more asteroids spawn and Failure happens
-
-        //    }
-        //}
 
         if (text != null)
         {
@@ -131,12 +148,23 @@ public class GameManager : MonoBehaviour
         CreditsScreenStateObject.SetActive(false);
         GameplayStateObject.SetActive(false);
         GameOverScreenStateObject.SetActive(false);
+        VictoryScreenStateObject.SetActive(false);
     }
 
     public void ActivateTitleScreen()
     {
         // Deactivate all states
         DeactivateAllStates();
+
+        if (gameplayAudioListener != null)
+        {
+            gameplayAudioListener.SetActive(false);
+        }
+
+        if (cameraAudioListener != null)
+        {
+            cameraAudioListener.enabled = true;
+        }
 
         // Activate the title screen
         TitleScreenStateObject.SetActive(true);
@@ -147,11 +175,26 @@ public class GameManager : MonoBehaviour
         // Deactivate all states
         DeactivateAllStates();
 
+        if (cameraAudioListener != null)
+        {
+            cameraAudioListener.enabled = false;
+        }
+
+        if(gameplayAudioListener != null)
+        {
+            gameplayAudioListener.SetActive(true);
+        }
+
         Time.timeScale = 1f;
         gameEnded = false;
-        lives = 3;
+        startingNewGame = true;
+        score = 0;
 
-        UpdateLivesUI();
+        if (playerLives != null)
+        {
+            playerLives.lives = 3;
+            playerLives.UpdateLivesUI();
+        }
 
         // Activate the Gameplay screen
         GameplayStateObject.SetActive(true);
@@ -162,6 +205,16 @@ public class GameManager : MonoBehaviour
         // Deactivate all states
         DeactivateAllStates();
 
+        if (gameplayAudioListener != null)
+        {
+            gameplayAudioListener.SetActive(false);
+        }
+
+        if (cameraAudioListener != null)
+        {
+            cameraAudioListener.enabled = true;
+        }
+
         // Activate the Main Menu screen
         MainMenuScreenStateObject.SetActive(true);
     }
@@ -170,6 +223,16 @@ public class GameManager : MonoBehaviour
     {
         // Deactivate all states
         DeactivateAllStates();
+
+        if (gameplayAudioListener != null)
+        {
+            gameplayAudioListener.SetActive(false);
+        }
+
+        if (cameraAudioListener != null)
+        {
+            cameraAudioListener.enabled = true;
+        }
 
         // Activate the Options screen
         OptionsScreenStateObject.SetActive(true);
@@ -180,6 +243,16 @@ public class GameManager : MonoBehaviour
         // Deactivate all states
         DeactivateAllStates();
 
+        if (gameplayAudioListener != null)
+        {
+            gameplayAudioListener.SetActive(false);
+        }
+
+        if (cameraAudioListener != null)
+        {
+            cameraAudioListener.enabled = true;
+        }
+
         // Activate the Credits screen
         CreditsScreenStateObject.SetActive(true);
     }
@@ -189,113 +262,39 @@ public class GameManager : MonoBehaviour
         // Deactivate all states
         DeactivateAllStates();
 
+        if (gameplayAudioListener != null)
+        {
+            gameplayAudioListener.SetActive(false);
+        }
+
+        if (cameraAudioListener != null)
+        {
+            cameraAudioListener.enabled = true;
+        }
+
         // Activate the Game Over screen
         GameOverScreenStateObject.SetActive(true);
     }
 
-    public void UpdateLivesUI()
+    public void ActivateVictoryScreen()
     {
-        if (lifeIcons == null)
+        // Deactivate all states
+        DeactivateAllStates();
+
+        if (gameplayAudioListener != null)
         {
-            return;
+            gameplayAudioListener.SetActive(false);
         }
 
-        for (int i = 0; i < lifeIcons.Length; i += 1)
+        if (cameraAudioListener != null)
         {
-            if (lifeIcons[i] != null)
-            {
-                lifeIcons[i].SetActive(i < lives);
-            }
+            cameraAudioListener.enabled = true;
         }
+
+        // Activate the Victory screen
+        VictoryScreenStateObject.SetActive(true);
     }
-     public void HandlePlayerDeath()
-     {
-        if (gameEnded)
-        {
-            return;
-        }
 
-        lives = Mathf.Max(0, lives - 1);
-
-        UpdateLivesUI();
-
-        if (playerController != null)
-        {
-            playerController.pawn = null;
-        }
-
-        if (asteroidSpawner != null)
-        {
-            asteroidSpawner.starShipPawn = null;
-        }
-
-        if (lives <=0)
-        {
-            gameEnded = true;
-            ActivateGameOverScreen();
-            Time.timeScale = 0f;
-        }
-        else
-        {
-            Invoke(nameof(RespawnPlayer), respawnDelay);
-        }
-     }
-
-    public void RespawnPlayer()
-    {
-        if (playerPawnPrefab == null)
-        {
-            Debug.LogError("Player Pawn Prefab is not assigned!");
-            return;
-        }
-
-        if (playerController == null)
-        {
-            Debug.LogError("Player controller is not assigned!");
-            return;
-        }
-
-        Camera mainCamera = Camera.main;
-
-        if (mainCamera == null)
-        {
-            Debug.LogError("Main Camera was not found!");
-            return;
-        }
-
-        Vector3 screenCenter = new Vector3(
-            Screen.width / 2f,
-            Screen.height / 2f,
-            -mainCamera.transform.position.z);
-
-        Vector3 spawnPosition =
-            mainCamera.ScreenToWorldPoint(screenCenter);
-
-        spawnPosition.z = 0f;
-
-        GameObject newShip = Instantiate(
-            playerPawnPrefab,
-            spawnPosition,
-            Quaternion.identity);
-
-        Pawn newPawn = newShip.GetComponent<Pawn>();
-
-        if (newPawn == null)
-        {
-            Debug.LogError("Player Pawn Prefab must have a Pawn component!");
-
-            Destroy(newShip);
-            return;
-        }
-
-        playerController.pawn = newPawn;
-
-        if (asteroidSpawner != null)
-        {
-            asteroidSpawner.starShipPawn = newShip.transform;
-        }
-
-    }
 
 
 }

@@ -12,9 +12,32 @@ public class DeathDestroyManager : Death
 
     public AudioSource audioSource;
 
+    public GameObject splitAsteroidPrefab;
+
+    public int splitCount = 2;
+
+    private bool hasDied = false;
+
 
     public override void Die()
     {
+        if (hasDied)
+        {
+            return;
+        }
+
+        hasDied = true;
+
+        if (splitAsteroidPrefab != null)
+        {
+            for (int i = 0; i < splitCount; i += 1)  // controls how many asteroids the large asteroid splits into using the splitCount set in inspector
+            {
+                Vector2 offset = Random.insideUnitCircle * 0.5f;
+
+                Instantiate(splitAsteroidPrefab, transform.position + (Vector3)offset, Quaternion.identity);
+            }
+        }
+
         if (GameManager.instance != null) //make sure this instance exists
         {
             if (GameManager.instance.obstacleList != null && obstacleToRemoveOnDeath != null) // make sure obstacle list exists

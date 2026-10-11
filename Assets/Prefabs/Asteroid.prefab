@@ -91,8 +91,10 @@ GameObject:
   - component: {fileID: 6706810625538926952}
   - component: {fileID: 8701276848906538947}
   - component: {fileID: 1276527664955523858}
+  - component: {fileID: -1908766748938962822}
   - component: {fileID: 3331359131247953641}
   - component: {fileID: -772441009488191168}
+  - component: {fileID: -4702107202035281053}
   m_Layer: 0
   m_Name: Asteroid
   m_TagString: Untagged
@@ -110,7 +112,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -3.49, y: 1.75, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_LocalScale: {x: 0.05, y: 0.05, z: 0.05}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 6205422586104114258}
@@ -128,7 +130,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d90add7ea3741aa4987dc139841dfc37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Damager
-  damageAmount: 15
+  damageAmount: 100
   isInstaKill: 1
   otherHealthComponent: {fileID: 0}
 --- !u!114 &1779837343420426054
@@ -143,8 +145,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 176b04725cf01ae41ab65b6f678adea8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Health
-  currentHealth: 75
-  maxHealth: 75
+  currentHealth: 50
+  maxHealth: 50
   death: {fileID: 1276527664955523858}
   healthBar: {fileID: 3540310763169328760}
   hitSound: {fileID: 8300000, guid: 8d2a72feb261c4342bdeb638fb2176f9, type: 3}
@@ -301,6 +303,20 @@ MonoBehaviour:
   obstacleToRemoveOnDeath: {fileID: 0}
   explosionSound: {fileID: 8300000, guid: 95cae6cee2daf47478b3507c2f5b5d43, type: 3}
   audioSource: {fileID: 0}
+  splitAsteroidPrefab: {fileID: 0}
+--- !u!114 &-1908766748938962822
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7149736006767478858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d57b42eb1e5b1e4468403e6c779487fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AsteroidMovement
+  moveSpeed: 0.5
 --- !u!95 &3331359131247953641
 Animator:
   serializedVersion: 7
@@ -420,6 +436,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &-4702107202035281053
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7149736006767478858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffdea1aa5ef3b9c429d181e47adc4715, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ScreenWrap
+  mainCamera: {fileID: 0}
 --- !u!1 &7912678783272505174
 GameObject:
   m_ObjectHideFlags: 0
@@ -456,8 +485,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -0.03, y: 0.05}
-  m_SizeDelta: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 1.023, y: 6.954}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &5434130107945573966
 Canvas:

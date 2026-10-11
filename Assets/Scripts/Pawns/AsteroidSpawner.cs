@@ -5,6 +5,10 @@ public class AsteroidSpawner : MonoBehaviour
 
     public GameObject asteroidPrefab;   // lets me add the Asteroid prefab to the inspector so it can be spawned
 
+    public GameObject ufoPreFab;
+
+    public GameObject largeAsteroidPrefab;
+
     public Camera mainCamera;           // store reference to the camera being used to determine where on the screen the asteroid can spawn
 
     public Transform starShipPawn;      // lets me add the StarShipPawn in Inspector so asteroids cant spawn on it or too close
@@ -13,8 +17,13 @@ public class AsteroidSpawner : MonoBehaviour
 
     public float spawnInterval = 5f;            // how often Asteroids will spawn, defaulted to 5 seconds
 
+    [Range(0f, 1f)]                         // sets a slider from 0-1 in Inspector instead of a reg number
+    public float ufoSpawnChance = 0.15f;
 
-    
+    [Range(0f, 1f)]                         // sets a slider from 0-1 in Inspector instead of a reg number
+    public float largeAsteroidSpawnChance = 0.15f;
+
+
     public void Start()
     {
         
@@ -41,14 +50,14 @@ public class AsteroidSpawner : MonoBehaviour
 
     }
 
-    
+
     void SpawnAsteroid()
     {
-        if (starShipPawn == null || asteroidPrefab == null)
+        if (starShipPawn == null || (asteroidPrefab == null && ufoPreFab == null && largeAsteroidPrefab == null))  // enemy spawns stop if player dies, or asteroids and ufos are all gone
         {
             return;
         }
-        
+
         if (mainCamera == null)
         {
             mainCamera = Camera.main;
@@ -64,9 +73,13 @@ public class AsteroidSpawner : MonoBehaviour
         do                          // starts a do / while loop. It runs the random position generator, then the While part checks it against the minimum spawn distance. If its good, it stops. If its too close, it runs again. 
 
         {
+            float bottomUIHeight = 300f;
+
+            float sideMargin = 50f;
+
             Vector3 screenPosition = new Vector3(               // creating screenPosition, represents a location on the game screen. Then picks a random number at least 50 pixels from the left and right
-               Random.Range(50f, Screen.width - 50f),           // and 100 pixels from the top and bottom to not appear under any UI elements
-               Random.Range(100f, Screen.height - 100f),        // the 0f at the end is just for the Z plane, not used in the 2D
+               Random.Range(sideMargin, Screen.width - sideMargin),           // and 100 pixels from the top and bottom to not appear under any UI elements
+               Random.Range(bottomUIHeight, Screen.height - 0.15f),        // the 0f at the end is just for the Z plane, not used in the 2D
                0f
            );
 
@@ -76,20 +89,55 @@ public class AsteroidSpawner : MonoBehaviour
         } while (
             Vector2.Distance(worldPosition, starShipPawn.position) < minimumSpawnDistance || TooCloseToAsteroid(worldPosition));    // gets the location of the StarShipPawn. Vector2.Distance is calculating the distance between the 2 input points (worldPosition and starShipPawn position) and seeing if its less than the minimumSpawnDistance. If so, it runs again and picks a new location. Then its looking to see if its also too close to an asteroid. 
 
-        Instantiate(asteroidPrefab, worldPosition, Quaternion.identity);    // creates the asteroid prefab at the random world position determined above with no rotation
+        GameObject prefabToSpawn = asteroidPrefab;
+
+        float spawnChance = Random.value;
+
+        if (ufoPreFab != null && spawnChance < ufoSpawnChance)
+        {
+            prefabToSpawn = ufoPreFab;
+        }
+        else if (largeAsteroidPrefab != null && spawnChance < ufoSpawnChance + largeAsteroidSpawnChance)
+        {
+            prefabToSpawn = largeAsteroidPrefab;
+        }
+
+        if (prefabToSpawn != null)
+        {
+            Instantiate(prefabToSpawn, worldPosition, Quaternion.identity);    // creates the asteroid prefab at the random world position determined above with no rotation
+        }
     }
-                                                                                
+
+
     bool TooCloseToAsteroid(Vector3 position)
     {
-        foreach (Obstacle obstacle in GameManager.instance.obstacleList)        // this goes through each instance of asteroid in the game manager obstacle list
+        if (GameManager.instance == null ||
+            GameManager.instance.obstacleList == null)
         {
-            if (Vector2.Distance(position, obstacle.transform.position) < minimumSpawnDistance)     // check how far the potential spawn location is, and checks it against the minimum spawn distance
+            return false;
+        }
+
+        // Check the asteroid list backwards so destroyed entries
+        // can be safely removed.
+        for (int i = GameManager.instance.obstacleList.Count - 1; i >= 0; i--)
+        {
+            Obstacle obstacle = GameManager.instance.obstacleList[i];    // this goes through each instance of asteroid in the game manager obstacle list
+
+            // Remove references to asteroids that no longer exist.
+            if (obstacle == null)
             {
-                return true;                    // this position is too close to another asteroid, it makes the TooCloseToAsteroid portion of the While loop fail and have to run again
+                GameManager.instance.obstacleList.RemoveAt(i);
+                continue;
+            }
+
+            // Check the distance to existing asteroids.
+            if (Vector2.Distance(position, obstacle.transform.position) < minimumSpawnDistance) // check how far the potential spawn location is, and checks it against the minimum spawn distance
+            {
+                return true;    // this position is too close to another asteroid, it makes the TooCloseToAsteroid portion of the While loop fail and have to run a
             }
         }
 
-        return false;                           // this position isnt too close to another asteroid, it lets the TooCloseToAsteroid portion of the While loop pass
+        return false;           // this position isnt too close to another asteroid, it lets the TooCloseToAsteroid portion of the While loop pass
     }
-    
+
 }
