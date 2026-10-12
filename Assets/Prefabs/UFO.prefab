@@ -312,7 +312,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DeathDestroyManager
   animator: {fileID: 2460791471410817607}
-  scoreValue: 10
+  scoreValue: 15
   obstacleToRemoveOnDeath: {fileID: 0}
   explosionSound: {fileID: 8300000, guid: 95cae6cee2daf47478b3507c2f5b5d43, type: 3}
   audioSource: {fileID: 0}
@@ -450,6 +450,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ScreenWrap
   mainCamera: {fileID: 0}
+  bottomWrapBoundary: 0.15
 --- !u!1 &6325228826750066743
 GameObject:
   m_ObjectHideFlags: 0

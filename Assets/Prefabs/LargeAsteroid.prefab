@@ -229,7 +229,7 @@ MonoBehaviour:
   explosionSound: {fileID: 8300000, guid: 95cae6cee2daf47478b3507c2f5b5d43, type: 3}
   audioSource: {fileID: 0}
   splitAsteroidPrefab: {fileID: 7149736006767478858, guid: 949460084ab201141b15c5ea0877042d, type: 3}
-  splitCount: 3
+  splitCount: 4
 --- !u!114 &2517824449844390563
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -375,6 +375,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ScreenWrap
   mainCamera: {fileID: 0}
+  bottomWrapBoundary: 0.15
 --- !u!1 &2061221657635801098
 GameObject:
   m_ObjectHideFlags: 0
