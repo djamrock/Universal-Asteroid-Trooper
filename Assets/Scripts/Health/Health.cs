@@ -38,17 +38,6 @@ public class Health : MonoBehaviour
         
     }
 
-    public void Heal(float healAmount)
-    {
-        currentHealth += healAmount;
-
-        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth); // if current health is between zero and max, clamp returns current. If current is less than zero, clamp returns zero. If current health is greater than max, max is returned.
-
-        if (healthBar != null)
-        {
-            healthBar.fillAmount = 1f - (currentHealth / maxHealth);
-        }
-    }
 
     public void TakeDamage(float damageAmount)
     {

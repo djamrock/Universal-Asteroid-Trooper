@@ -103,7 +103,7 @@ public class GameManager : MonoBehaviour
 
         if (obstacleList != null)
         {
-            if (!gameEnded && obstacleList.Count <= 0 && playerController != null)
+            if (gameEnded == false && obstacleList.Count <= 0 && playerController != null)      // if player controller is still assigned (meaning player is alive), obstacle list is zero, and the game hasnt ended
             {
                 if (playerController.pawn != null)
                 {

@@ -59,7 +59,7 @@ public class DeathDestroyManager : Death
 
             animator.SetTrigger("Explode");  // animation I added for the Asteroid to expode 
 
-            GameManager.instance.score += scoreValue;
+            GameManager.instance.score += scoreValue; // adds points when emeny is killed
         }
 
     }
